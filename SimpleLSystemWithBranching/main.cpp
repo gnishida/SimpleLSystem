@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <vector>
 #include "Radix.h"
-#include "SimpleLSystem.h"
+#include "SimpleLSystemWithBranching.h"
 #include "MLUtils.h"
 #include "LinearRegression.h"
 
@@ -11,7 +11,7 @@ using namespace std;
 
 void test_linearity() {
 	Radix r;
-	SimpleLSystem sls;
+	SimpleLSystemWithBranching sls;
 
 	int b_index = 3;
 	int grid_size = 10;
@@ -35,7 +35,8 @@ void test_linearity() {
 	int count = 0;
 	for (int i = 0; i < X.rows; ++i) {
 		try {
-			cv::Mat_<double> density = sls.computeDensity(grid_size, X.row(i), true, true);
+			//cv::Mat_<double> density = sls.computeDensity(grid_size, X.row(i), true, true);
+			cv::Mat_<double> density = sls.computeDensity(grid_size, X.row(i), true, false);
 			density.copyTo(Y.row(count));
 			X.row(i).copyTo(X2.row(count));
 			count++;
@@ -126,7 +127,7 @@ void test_linearity() {
 
 void draw_curve() {
 	Radix r;
-	SimpleLSystem sls;
+	SimpleLSystemWithBranching sls;
 
 	int grid_size = 10;
 	//int grid_size = 4;

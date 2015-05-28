@@ -30,7 +30,7 @@
     <ClCompile Include="Radix.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SimpleLSystem.cpp">
+    <ClCompile Include="SimpleLSystemWithBranching.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -41,10 +41,10 @@
     <ClInclude Include="..\..\codebase\MLUtils.h">
       <Filter>Source Files\codebase</Filter>
     </ClInclude>
-    <ClInclude Include="SimpleLSystem.h">
+    <ClInclude Include="Radix.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Radix.h">
+    <ClInclude Include="SimpleLSystemWithBranching.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -119,13 +119,13 @@
     <ClCompile Include="..\..\codebase\MLUtils.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Radix.cpp" />
-    <ClCompile Include="SimpleLSystem.cpp" />
+    <ClCompile Include="SimpleLSystemWithBranching.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\codebase\LinearRegression.h" />
     <ClInclude Include="..\..\codebase\MLUtils.h" />
     <ClInclude Include="Radix.h" />
-    <ClInclude Include="SimpleLSystem.h" />
+    <ClInclude Include="SimpleLSystemWithBranching.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

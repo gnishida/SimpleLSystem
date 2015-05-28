@@ -61,12 +61,18 @@ int SimpleGreedyLSystem::chooseParam(const cv::Point2d& pt, const cv::Mat_<doubl
 	for (int r = pt.y; r < target_density.rows; ++r) {
 		cv::Point2d vec(0, 0);
 		bool found = false;
-		for (int c = 0; c < target_density.cols; ++c) {
-			if (target_density(r, c) == 0) continue;
 
-			found = true;
-			vec.x += (c + 0.5f - pt.x) * target_density(r, c);
-			vec.y += (r - pt.y) * target_density(r, c);
+		// 直近の2行のdensity情報をもとに、方向ベクトルを計算する
+		for (int rr = 0; rr < 2; ++rr) {
+			if (r + rr >= target_density.rows) break;
+
+			for (int c = 0; c < target_density.cols; ++c) {
+				if (target_density(r + rr, c) == 0) continue;
+
+				found = true;
+				vec.x += (c + 0.5f - pt.x) * target_density(r + rr, c);
+				vec.y += (r + rr - pt.y) * target_density(r + rr, c);
+			}
 		}
 
 		// この行にdensity情報がなければ、次の行を探す

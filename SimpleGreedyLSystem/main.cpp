@@ -50,7 +50,7 @@ void test_linearity() {
 	cout << "RMSE: " << endl;
 
 	// Inverse
-	for (int k = 3; k < grid_size; ++k) {
+	for (int k = 0; k < grid_size; ++k) {
 		cv::Mat_<double> testY2 = testY.clone();
 
 		// 最初のk行分を0にする

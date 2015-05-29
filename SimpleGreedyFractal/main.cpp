@@ -16,8 +16,6 @@ void test_linearity() {
 	cv::Mat target_density = cv::imread("target_density.jpg", 0);
 	target_density.convertTo(target_density, CV_64F, 1.0/255.0);
 	cv::flip(target_density, target_density, 0);
-
-	ml::mat_save("target.png", target_density, false);
 	
 	cv::Mat_<double> result = sls.derive(target_density);
 	ml::mat_save("result.png", result, false);

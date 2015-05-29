@@ -42,73 +42,16 @@ void Rule::replace(int index, const Rule& r) {
 
 SimpleGreedyFractal::SimpleGreedyFractal() {
 	/*
-	N = 5;
-	delta = 25.7;
-	axiom = 'F';
-	rules['F'].push_back(pair<double, string>(1.0, "F[+F]F[-F]F"));
-	*/
-
-	/*
-	N = 5;
-	delta = 20;
-	axiom = 'F';
-	rules['F'].push_back(pair<double, string>(1.0, "F[+F]F[-F][F]"));
-	*/
-
-	/*
 	N = 4;
-	delta = 22.5;
-	axiom = 'F';
-	rules['F'].push_back(pair<double, string>(1.0, "FF-[-F+F+F]+[+F-F-F]"));
-	*/
-
-	/*
-	N = 7;
-	delta = 20;
-	axiom = 'X';
-	rules['X'].push_back(pair<double, string>(1.0, "F[+X]F[-X]+X"));
-	rules['F'].push_back(pair<double, string>(1.0, "FF"));
-	*/
-
-	/*
-	N = 7;
-	delta = 25.7;
-	axiom = 'X';
-	rules['X'].push_back(pair<double, string>(1.0, "F[+X][-X]FX"));
-	rules['F'].push_back(pair<double, string>(1.0, "FF"));
-	*/
-
-	/*
-	N = 5;
-	delta = 22.5;
-	axiom = 'X';
-	rules['X'].push_back(pair<double, string>(1.0, "F-[[X]+X]+F[+FX]-X"));
-	rules['F'].push_back(pair<double, string>(1.0, "FF"));
-	*/
-
-	/*
-	N = 7;
-	delta = 22.5;
-	axiom = 'A';
-	rules['A'].push_back(pair<double, string>(1.0, "[&FL!A]/////'[&FL!A]///////'[&FL!A]"));
-	rules['F'].push_back(pair<double, string>(1.0, "S/////F"));
-	rules['S'].push_back(pair<double, string>(1.0, "FL"));
-	rules['L'].push_back(pair<double, string>(1.0, "['''^^f]"));
-	*/
-
-	/*
-	N = 5;
-	delta = 25.7;
-	axiom = 'F';
-	rules['F'].push_back(pair<double, string>(0.33, "F[+F]F[-F]F"));
-	rules['F'].push_back(pair<double, string>(0.33, "F[+F]F"));
-	rules['F'].push_back(pair<double, string>(0.34, "F[-F]F"));
-	*/
-
-	N = 2;
 	delta = 90;
 	axiom = "F-F-F-F";
 	rules['F'] = "F+FF-FF-F-F+F+FF-F-F+F+FF+FF-F";
+	*/
+
+	N = 8;
+	delta = 70;
+	axiom = "F";
+	rules['F'] = "F[+FF]F[-FF]F";
 
 	//rule = derive(target_density);
 }
@@ -122,14 +65,14 @@ cv::Mat_<double> SimpleGreedyFractal::derive(const cv::Mat_<double>& target_dens
 		//draw(result, 1, minPt, maxPt);
 
 		//float scale = computeScale(target_width, target_height, maxPt.x - minPt.x, maxPt.y - minPt.y);
-		cv::Mat_<double> density = computeDensity(result, 50.0f, glm::vec2(25, 25));
+		cv::Mat_<double> density = computeDensity(result, 100.0f, glm::vec2(50, 0));
 		ml::mat_save("density.png", density, false);
 
 		float score = computeScore(target_density, density);
 
 		vector<bool> replace;
 		for (int i = 0; i < result.length(); ++i) {
-			if (rules.find(result[i].c) != rules.end()) {
+			if (result[i].level == n && rules.find(result[i].c) != rules.end()) {
 				// 試しに描画して、スコアが上がるなら、書き換え
 				Rule next = result;
 				next.replace(i, Rule(rules[result[i].c], n + 1));
@@ -138,7 +81,7 @@ cv::Mat_<double> SimpleGreedyFractal::derive(const cv::Mat_<double>& target_dens
 				//draw(next, 1, minPt2, maxPt2);
 
 				//float scale2 = computeScale(target_width, target_height, maxPt2.x - minPt2.x, maxPt2.y - minPt2.y);
-				cv::Mat_<double> density2 = computeDensity(next, 50.0f, glm::vec2(25, 25));
+				cv::Mat_<double> density2 = computeDensity(next, 100.0f, glm::vec2(50, 0));
 				ml::mat_save("density2.png", density2, false);
 				float score2 = computeScore(target_density, density2);
 
@@ -154,7 +97,7 @@ cv::Mat_<double> SimpleGreedyFractal::derive(const cv::Mat_<double>& target_dens
 		Rule next;
 		int count = 0;
 		for (int i = 0; i < result.length(); ++i) {
-			if (rules.find(result[i].c) == rules.end()) {
+			if (rules.find(result[i].c) == rules.end() || result[i].level != n) {
 				next += Rule(result[i]);
 			} else {
 				if (replace[count++]) {
@@ -168,7 +111,7 @@ cv::Mat_<double> SimpleGreedyFractal::derive(const cv::Mat_<double>& target_dens
 		result = next;
 	}
 
-	return computeDensity(result, 50.0f, glm::vec2(25, 25));
+	return computeDensity(result, 100.0f, glm::vec2(50, 0));
 }
 
 /*
@@ -242,8 +185,8 @@ cv::Mat_<double> SimpleGreedyFractal::computeDensity(const Rule& rule, float seg
 		} else if (rule[i].c == '|') {
 			modelMat = glm::rotate(modelMat, deg2rad(180), glm::vec3(0, 0, 1));
 		} else if (rule[i].c == 'F') {
-			drawForward(modelMat, segment_length / pow(6.0, rule[i].level), density);
-			modelMat = glm::translate(modelMat, glm::vec3(0, segment_length / pow(6.0, rule[i].level), 0));
+			drawForward(modelMat, segment_length / pow(3.0, rule[i].level), density);
+			modelMat = glm::translate(modelMat, glm::vec3(0, segment_length / pow(3.0, rule[i].level), 0));
 		}
 	}
 
@@ -268,11 +211,24 @@ void SimpleGreedyFractal::drawForward(const glm::mat4& modelMat, float segment_l
 	p1 = modelMat * p1;
 	p2 = modelMat * p2;
 
-	cv::line(density, cv::Point(p1.x, p1.y), cv::Point(p2.x, p2.y), cv::Scalar(0), 3);
+	cv::line(density, cv::Point(p1.x, p1.y), cv::Point(p2.x, p2.y), cv::Scalar(0), 1);
 }
 
 float SimpleGreedyFractal::computeScore(const cv::Mat_<double>& target_density, const cv::Mat_<double>& density) {
-	return -ml::mat_sum(ml::mat_square(target_density - density));
+	//return -ml::mat_sum(ml::mat_square(target_density - density));
+	float score = 0.0f;
+	for (int r = 0; r < target_density.rows; ++r) {
+		for (int c = 0; c < target_density.cols; ++c) {
+			if (target_density(r, c) == 0 && density(r, c) == 0) {
+				score += 100.0f;
+			} else if (target_density(r, c) == 1 && density(r, c) == 1) {
+				score += 10.0f;
+			} else {
+				score -= 1.0f;
+			}
+		}
+	}
+	return score;
 }
 
 /*float SimpleGreedyFractal::computeScale(float target_width, float target_height, float width, float height) {

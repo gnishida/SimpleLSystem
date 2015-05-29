@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpleLSystemWithBranching"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpleGreedyLSystem", "SimpleGreedyLSystem\SimpleGreedyLSystem.vcxproj", "{15B9B9A9-AB04-4928-ABEE-0CC09234D35E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpleGreedyFractal", "SimpleGreedyFractal\SimpleGreedyFractal.vcxproj", "{FA3FC920-EA7F-4B5C-BAC1-4E267E3ADD61}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -39,6 +41,14 @@ Global
 		{15B9B9A9-AB04-4928-ABEE-0CC09234D35E}.Release|Win32.Build.0 = Release|Win32
 		{15B9B9A9-AB04-4928-ABEE-0CC09234D35E}.Release|x64.ActiveCfg = Release|x64
 		{15B9B9A9-AB04-4928-ABEE-0CC09234D35E}.Release|x64.Build.0 = Release|x64
+		{FA3FC920-EA7F-4B5C-BAC1-4E267E3ADD61}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FA3FC920-EA7F-4B5C-BAC1-4E267E3ADD61}.Debug|Win32.Build.0 = Debug|Win32
+		{FA3FC920-EA7F-4B5C-BAC1-4E267E3ADD61}.Debug|x64.ActiveCfg = Debug|x64
+		{FA3FC920-EA7F-4B5C-BAC1-4E267E3ADD61}.Debug|x64.Build.0 = Debug|x64
+		{FA3FC920-EA7F-4B5C-BAC1-4E267E3ADD61}.Release|Win32.ActiveCfg = Release|Win32
+		{FA3FC920-EA7F-4B5C-BAC1-4E267E3ADD61}.Release|Win32.Build.0 = Release|Win32
+		{FA3FC920-EA7F-4B5C-BAC1-4E267E3ADD61}.Release|x64.ActiveCfg = Release|x64
+		{FA3FC920-EA7F-4B5C-BAC1-4E267E3ADD61}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

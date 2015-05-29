@@ -24,9 +24,6 @@
     <ClCompile Include="..\..\codebase\MLUtils.cpp">
       <Filter>Source Files\codebase</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codebase\LinearRegression.cpp">
-      <Filter>Source Files\codebase</Filter>
-    </ClCompile>
     <ClCompile Include="Radix.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -39,9 +36,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\codebase\MLUtils.h">
-      <Filter>Source Files\codebase</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codebase\LinearRegression.h">
       <Filter>Source Files\codebase</Filter>
     </ClInclude>
     <ClInclude Include="Radix.h">

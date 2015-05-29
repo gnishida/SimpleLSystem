@@ -32,7 +32,7 @@ void test_linearity() {
 	ml::shuffle(X);
 
 	for (int i = 0; i < X.rows; ++i) {
-		cv::Mat_<double> density = sls.computeDensity(grid_size, X.row(i), true);
+		cv::Mat_<double> density = sls.computeDensity(grid_size, X.row(i), false);
 			
 		density.copyTo(Y.row(i));
 	}
@@ -91,7 +91,7 @@ void test_linearity() {
 
 		cv::Mat_<double> Y_hat(testY.rows, testY.cols);
 		for (int i = 0; i < testX.rows; ++i) {
-			cv::Mat_<double> density_hat = sls.computeDensity(grid_size, X_hat.row(i), true);
+			cv::Mat_<double> density_hat = sls.computeDensity(grid_size, X_hat.row(i), false);
 			density_hat.copyTo(Y_hat.row(i));
 		}
 
@@ -99,7 +99,7 @@ void test_linearity() {
 		cv::reduce(trainX, X_avg, 0, CV_REDUCE_AVG);
 		double baselineX = ml::rmse(testX, cv::repeat(X_avg, testX.rows, 1), true);
 
-		cv::Mat Y_avg = sls.computeDensity(grid_size, X_avg, true);
+		cv::Mat Y_avg = sls.computeDensity(grid_size, X_avg, false);
 		//cv::reduce(trainY, Y_avg, 0, CV_REDUCE_AVG);
 		double baselineY = ml::rmse(testY, cv::repeat(Y_avg, testY.rows, 1), true);
 
@@ -264,9 +264,9 @@ int main() {
 	cout << T << endl;
 	*/
 
-	//test_linearity();
+	test_linearity();
 
-	test_quadratic_linearity();
+	//test_quadratic_linearity();
 
 	//draw_curve();
 
